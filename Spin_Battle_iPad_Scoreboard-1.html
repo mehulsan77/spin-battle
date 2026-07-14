@@ -1,0 +1,37 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spin Battle</title>
+<style>
+html,body{margin:0;height:100%;font-family:Arial;background:#111;color:#fff}
+#setup{position:fixed;inset:0;background:#111;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px}
+input,button{font-size:22px;padding:10px}
+#board{display:none;height:100vh}
+.side{width:50%;float:left;height:100%;text-align:center;box-sizing:border-box;padding:20px}
+.left{background:#0b63ff}.right{background:#d92d2d}
+.photo{height:50vh;border:4px solid #fff;border-radius:16px;background:rgba(255,255,255,.15) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:28px}
+.name{font-size:42px;font-weight:bold;margin-top:15px}
+.score{font-size:120px;font-weight:bold;user-select:none;cursor:pointer}
+.footer{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#000a;padding:10px 20px;border-radius:12px;font-size:28px}
+</style></head><body>
+<div id="setup">
+<h1>Spin Battle Setup</h1>
+<input id="n1" value="FRANCE"><input id="f1" type="file" accept="image/*">
+<input id="n2" value="SPAIN"><input id="f2" type="file" accept="image/*">
+<button onclick="go()">Start Battle</button>
+</div>
+<div id="board">
+<div class="side left"><div id="p1" class="photo">Player 1 Photo</div><div id="t1" class="name"></div><div id="sc1" class="score">0</div></div>
+<div class="side right"><div id="p2" class="photo">Player 2 Photo</div><div id="t2" class="name"></div><div id="sc2" class="score">0</div></div>
+<div class="footer">Tap Score = +1 | Double Tap = -1</div>
+</div>
+<script>
+let a=0,b=0;
+function setImg(inp,el){if(inp.files.length){let r=new FileReader();r.onload=e=>{el.style.backgroundImage='url('+e.target.result+')';el.textContent='';};r.readAsDataURL(inp.files[0]);}}
+function go(){setup.style.display='none';board.style.display='block';t1.textContent=n1.value;t2.textContent=n2.value;setImg(f1,p1);setImg(f2,p2);}
+sc1.onclick=()=>{sc1.textContent=++a;}
+sc2.onclick=()=>{sc2.textContent=++b;}
+sc1.ondblclick=()=>{if(a>0)sc1.textContent=--a;}
+sc2.ondblclick=()=>{if(b>0)sc2.textContent=--b;}
+</script>
+</body></html>
